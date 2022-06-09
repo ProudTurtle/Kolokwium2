@@ -1,11 +1,14 @@
-﻿using System;
+﻿using kolokwium2.Models.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace kolokwium2.Services
 {
-    interface IMusicService
+   public interface IMusicService
     {
+        public Task<IEnumerable<MusicianGet>> GetMusician(int id);
+
     }
 }

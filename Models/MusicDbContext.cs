@@ -11,6 +11,7 @@ namespace kolokwium2.Models
         public MusicDbContext(DbContextOptions options) : base(options) 
         {
         }
+        public DbSet<Musician> Musicians { set; get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
@@ -58,9 +59,10 @@ namespace kolokwium2.Models
 
             modelBuilder.Entity<Musician_Track>(e =>
             {
-                e.HasKey(e => e.IdMusician);
+                e.HasKey(e => new { e.IdMusician, e.Track });
 
                 e.HasOne(e => e.Musician).WithMany(e => e.Musician_Tracks).HasForeignKey(e => e.IdMusician).OnDelete(DeleteBehavior.ClientCascade);
+                e.HasOne(e => e.Track).WithMany(e => e.Musician_Tracks).HasForeignKey(e => e.Track).OnDelete(DeleteBehavior.ClientCascade);
 
                 e.ToTable("Musician_Track");
                 
